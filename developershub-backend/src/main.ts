@@ -5,8 +5,21 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const port = Number(process.env.PORT) || 5000;
+  const envOrigins = (process.env.FRONTEND_URL || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  const allowedOrigins = Array.from(
+    new Set([
+      'http://localhost:3000',
+      'https://developershub-frontend.vercel.app',
+      ...envOrigins,
+    ]),
+  );
+
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://developershub-frontend.vercel.app'], // we will add frontend URL later
+    origin: allowedOrigins,
     credentials: true,
   });
 
@@ -18,7 +31,7 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(5000);
-  console.log('🚀 Backend running on http://localhost:5000');
+  await app.listen(port);
+  console.log(`Backend running on port ${port}`);
 }
 bootstrap();
