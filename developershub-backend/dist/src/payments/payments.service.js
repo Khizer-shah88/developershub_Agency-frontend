@@ -8,23 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var PaymentsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-let PaymentsService = class PaymentsService {
+let PaymentsService = PaymentsService_1 = class PaymentsService {
     prisma;
-    stripe;
+    logger = new common_1.Logger(PaymentsService_1.name);
+    stripe = null;
     constructor(prisma) {
         this.prisma = prisma;
+        const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+        if (!stripeSecretKey) {
+            this.logger.warn('Payments are disabled because STRIPE_SECRET_KEY is not configured.');
+            return;
+        }
         const StripeConstructor = require('stripe');
-        this.stripe = new StripeConstructor(process.env.STRIPE_SECRET_KEY, {
+        this.stripe = new StripeConstructor(stripeSecretKey, {
             apiVersion: '2024-06-20',
         });
     }
     async createCheckoutSession(body) {
-        if (!process.env.STRIPE_SECRET_KEY) {
-            throw new common_1.BadRequestException('STRIPE_SECRET_KEY is not configured');
+        if (!this.stripe) {
+            throw new common_1.ServiceUnavailableException('Payments are disabled for this deployment');
         }
         if (!body?.appointmentId || !body?.amount || body.amount <= 0) {
             throw new common_1.BadRequestException('appointmentId and positive amount are required');
@@ -61,7 +68,7 @@ let PaymentsService = class PaymentsService {
     }
 };
 exports.PaymentsService = PaymentsService;
-exports.PaymentsService = PaymentsService = __decorate([
+exports.PaymentsService = PaymentsService = PaymentsService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], PaymentsService);
