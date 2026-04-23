@@ -5,8 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://developershub-agency-platform-1.onrender.com';
+import { API_BASE_URL } from '@/lib/api';
 
 function ResetPasswordContent() {
   const router = useRouter();

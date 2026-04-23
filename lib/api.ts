@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://developershub-agency-platform-1.onrender.com';
+export const API_BASE_URL =
+	process.env.NEXT_PUBLIC_API_URL || 'https://developershub-agency-platform-1.onrender.com';
 
 const api = axios.create({
 	baseURL: API_BASE_URL,

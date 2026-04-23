@@ -8,6 +8,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { getRoleRedirectPath, resolveRole } from '@/lib/auth';
+import { API_BASE_URL } from '@/lib/api';
 
 const headlineWords = ['Welcome Back', "Let's Build", 'Ready to Ship', 'Start Creating'];
 
@@ -68,7 +69,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password,
       });
@@ -91,7 +92,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/auth/register', {
+      await axios.post(`${API_BASE_URL}/auth/register`, {
         name,
         email,
         password,
@@ -109,7 +110,7 @@ export default function LoginPage() {
   const handleRequestReset = async () => {
     setResetLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/auth/request-password-reset', {
+      const res = await axios.post(`${API_BASE_URL}/auth/request-password-reset`, {
         email: resetEmail,
       });
 

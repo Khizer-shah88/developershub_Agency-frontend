@@ -8,6 +8,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { getRoleRedirectPath, resolveRole } from '@/lib/auth';
+import { API_BASE_URL } from '@/lib/api';
 
 const headlineWords = ['Create Account', 'Join the Hub', 'Start Building', 'Ship Faster'];
 
@@ -64,7 +65,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/auth/register', {
+      const res = await axios.post(`${API_BASE_URL}/auth/register`, {
         name,
         email,
         password,
