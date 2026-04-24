@@ -40,7 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 Set this environment variable in Vercel for production and preview deployments:
 
 ```bash
-NEXT_PUBLIC_API_URL=https://developershub-agency-platform-1.onrender.com
+NEXT_PUBLIC_API_URL=https://developershub-backend.onrender.com
 ```
 
 On Render, set these environment variables for the backend service:
