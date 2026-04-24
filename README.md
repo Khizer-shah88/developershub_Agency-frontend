@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Backend Connection
+
+Set this environment variable in Vercel for production and preview deployments:
+
+```bash
+NEXT_PUBLIC_API_URL=https://developershub-agency-platform-1.onrender.com
+```
+
+On Render, set these environment variables for the backend service:
+
+```bash
+FRONTEND_URL=https://developershub-agency-frontend-7exw-fksptp7o4.vercel.app
+```
+
+If you use a different Vercel preview URL, keep the same backend code and redeploy. The backend now allows any `*.vercel.app` origin plus the configured `FRONTEND_URL`.
