@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API_BASE_URL =
-	process.env.NEXT_PUBLIC_API_URL || 'https://developershub-backend.onrender.com';
+	process.env.NEXT_PUBLIC_API_URL || 'https://developershubbackend-production.up.railway.app';
 
 const api = axios.create({
 	baseURL: API_BASE_URL,
